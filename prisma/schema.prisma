@@ -13,12 +13,50 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+//Users = Tabela de usuários padrão
 model User {
-  id         String   @id @default(uuid())
+  id         String          @id @default(uuid())
   name       String
   birthdate  DateTime
-  email      String   @unique
+  email      String          @unique
   password   String
+  created_at DateTime        @default(now())
+  updated_at DateTime        @default(now())
+  documents  UserDocuments[]
+
+  UsersAbilities UsersAbilities[]
+}
+
+//UsersDocuments = Tabela para subir arquivo de documentos do usuário
+model UserDocuments {
+  id         String   @id @default(uuid())
+  name       String
+  url        String
+  userId     String   @map("user_id")
+  user       User     @relation(fields: [userId], references: [id])
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
+}
+
+//Abilities = Tabela de listagem de habilidades
+model Abilities {
+  id         String   @id @default(uuid())
+  name       String
+  active     Boolean
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  UsersAbilities UsersAbilities[]
+}
+
+//UsersAbilities = Tabela que relaciona quais habilidades o usuário possui
+model UsersAbilities {
+  id              String    @id @default(uuid())
+  userId          String    @map("user_id")
+  abilityId       String    @map("ability_id")
+  yearsExperience Int       @map("years_experience")
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @default(now())
+  user            User      @relation(fields: [userId], references: [id])
+  ability         Abilities @relation(fields: [abilityId], references: [id])
 }
