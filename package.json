@@ -1,12 +1,11 @@
 {
   "name": "blis",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
     "dev": "tsx watch --env-file .env src/server.ts",
     "build": "tsup src --out-dir build",
-    "prod": "node  build/server.js"
-
+    "prod": "node  build/server.js",
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --watch --runInBand"
   },
   "keywords": [],
   "author": "",
@@ -14,8 +13,14 @@
   "description": "",
   "devDependencies": {
     "@types/node": "22.10.2",
+    "ts-jest": "29.2.5",
+    "ts-node": "10.9.2",
     "tsup": "8.3.5",
     "tsx": "4.19.2",
     "typescript": "5.7.2"
+  },
+  "dependencies": {
+    "@types/jest": "29.5.14",
+    "jest": "29.7.0"
   }
 }
