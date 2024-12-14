@@ -37,7 +37,7 @@ describe('Create user controller (e2)',()=>{
         email: 'any@example.com',
         password: '123456',
       })
-      expect(response.status).toBe(400)
+      expect(response.status).toBe(401)
 
       await prisma.user.deleteMany({
         where:{
