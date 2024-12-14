@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import z from "zod";
 import { prisma } from "../database/prisma";
 import {hash} from 'bcrypt'
+import { AppError } from "../utils/app-error";
 
 
 export class CreateUserController {
@@ -19,8 +20,7 @@ export class CreateUserController {
       }
     })
     if(userExists.length !== 0){
-       response.status(400).json({error: 'User already exists'})
-       return
+       throw new AppError('User already exists',401)
     }
     const hashPassword = await hash(password,8)
 
