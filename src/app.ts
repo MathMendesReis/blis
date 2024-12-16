@@ -6,5 +6,6 @@ import { errorHandling } from './midlewares/error-handling'
 const app = express()
 app.use(express.json())
 app.use(router)
+app.use(express.static('public'));
 app.use(errorHandling)
 export {app}
