@@ -8,11 +8,7 @@ describe('Session controller (e2)',()=>{
   })
 
   afterAll(async () => {
-    await prisma.user.deleteMany({
-      where:{
-        email: 'any@example.com',
-      }
-    })
+    await prisma.user.deleteMany()
     await prisma.$disconnect(); 
   });
     it('should return 201 if user is login',async()=>{
