@@ -1,8 +1,10 @@
 import { Router } from "express";
-import { prisma } from "../database/prisma";
 import { CreateUserController } from "../controllers/create-user-controller";
+import { UserDocumentController } from "../controllers/users-document-controller";
+import { upload } from "../utils/multer-config";
+import { ensureAuthenticate } from "../midlewares/ensure-authenticate";
 
 const userRouter = Router();
-const createUser = new CreateUserController()
-userRouter.post('/',createUser.handle );
+userRouter.post('/',new CreateUserController().handle );
+userRouter.post('/documents',ensureAuthenticate, upload.single('uploaded_file'),new UserDocumentController().handle );
 export { userRouter };
