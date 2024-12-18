@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import z from 'zod';
 import { prisma } from '../database/prisma';
+import { AppError } from '../utils/app-error';
 export class UserDocumentController {
   async handle(req:Request, res:Response) {
   
@@ -9,18 +10,30 @@ export class UserDocumentController {
     })
     const {name} =bodySchema.parse(req.body)
 
-    if (req.file) {
-      const fileUrl = `http://localhost:3000/uploads/${req.file.filename}`;
-      await prisma.userDocuments.create({
-        data:{
-          name: name,         
-          url: fileUrl,        
-          userId:req.user?.id as string
+    const documentExists = await prisma.userDocuments.findFirst({
+      where:{
+        name:name,
+        userId:req.user?.id as string
+      }
+    })
 
-        }
-      })
+    if(documentExists){
+      throw new AppError('Document already exists',400)
     }
 
-    res.status(201).json({message:"User document created"})
+    if (!req.file) {
+      throw new AppError('File not found',400)
+    }
+    const fileUrl = `http://localhost:3000/uploads/${req.file.filename}`;
+    const response = await prisma.userDocuments.create({
+      data:{
+        name: name,         
+        url: fileUrl,        
+        userId:req.user?.id as string
+
+      }
+    })
+    res.status(201).json({message:response})
+
   }
 }
