@@ -12,6 +12,21 @@ export class CreateUserAbilitiesController {
   
     const {yearsExperience,abilitiesId} =bodySchema.parse(req.body)
 
+    const abilities = await prisma.abilities.findFirst({
+      where:{
+        id:abilitiesId
+      }
+    })
+
+    if(!abilities){
+      throw new AppError('Ability not found',404)
+    }
+
+
+    if(abilities.active === false){
+      throw new AppError('Ability is not active',400)
+    }
+
     await prisma.usersAbilities.create({
       data:{
         userId:req.user?.id as string,
