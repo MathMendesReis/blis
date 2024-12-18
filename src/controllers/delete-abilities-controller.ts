@@ -21,7 +21,7 @@ export class DeleteAbilitiesController {
   
 
 
-    res.status(201).json({abilitiesId})
+    res.status(204).json()
   } 
 }
 
