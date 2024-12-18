@@ -4,7 +4,7 @@ import { prisma } from "../database/prisma";
 export class ListUserAbilitiesController {
   async handle(req:Request, res:Response) {
   
-    const response = await prisma.user.findMany({
+    const response = await prisma.user.findFirst({
       where:{
         id:req.user?.id as string
       },
@@ -16,11 +16,7 @@ export class ListUserAbilitiesController {
         UsersAbilities:{
           select:{
             yearsExperience:true,
-            ability:{
-              select:{
-                name:true
-              }
-            }
+            ability:true,
           },
           orderBy:{
             created_at:"desc"
