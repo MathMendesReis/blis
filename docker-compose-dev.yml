@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: blis
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: blis_db
+    volumes:
+      - ./data:/var/lib/postgresql/data
+  api:
+    image: node:20.15.1
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    working_dir: /app
+    command: >
+      sh -c "npx prisma generate &&
+      npx prisma migrate dev &&
+      npm run dev"
+    volumes:
+      - .:/app
+      - /usr/app/node_modules
