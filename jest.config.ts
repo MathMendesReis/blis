@@ -7,6 +7,7 @@ const config: Config = {
   coverageProvider: "v8",
   preset:"ts-jest",
   testEnvironment:"node",
+  modulePathIgnorePatterns: ["data","build","prisma"],
   testMatch:[
     "<rootDir>/src/**/*.test.ts"
   ],
