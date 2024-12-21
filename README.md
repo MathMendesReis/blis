@@ -38,8 +38,8 @@ Esse repositorio contem a solução do desafio proposto pela blis, para a vaga d
 3. Rode o projeto usando docker
 
   ```bash
-   docker compose -f docker-compose.dev.yml up 
+   docker compose up 
    # ou em background:
-   docker compose -f docker-compose.dev.yml up -d
+   docker compose up -d
    ```
 
