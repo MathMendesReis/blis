@@ -3,12 +3,8 @@ services:
     image: postgres:latest
     ports:
       - "5432:5432"
-    environment:
-      POSTGRES_USER: blis
-      POSTGRES_PASSWORD: secret
-      POSTGRES_DB: blis_db
-    volumes:
-      - ./data:/var/lib/postgresql/data
+    env_file:
+      - .env
   backend:
     build: .
     ports:
