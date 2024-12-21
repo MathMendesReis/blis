@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import z from "zod";
 import { prisma } from "../database/prisma";
 export class ListAbilitiesController {
   async handle(req:Request, res:Response) {
