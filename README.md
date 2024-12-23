@@ -43,3 +43,28 @@ Esse repositorio contem a solução do desafio proposto pela blis, para a vaga d
    docker compose up -d
    ```
 
+4. Caso tenha dificuldades com o docker, suba um container de cada vez
+
+ ```bash
+   docker compose up postgres -d
+   ```
+ ```bash
+   docker compose up backend -d
+   ```
+
+5. Caso queira rodar o projeto sem docker
+
+   Suba o banco de dados
+    ```bash
+   docker compose up postgres -d
+   ```
+   Instale as depedencias:
+    ```bash
+   npm instal
+   ```
+   rode o projeto:
+    ```bash
+   npm run dev
+   ```
+
+   Obs: Não se esqueça de mudar o host para localhost
