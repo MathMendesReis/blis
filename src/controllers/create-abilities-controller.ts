@@ -26,7 +26,7 @@ export class UserAbilitiesController {
     })
 
 
-    res.status(201).json({message:abilities})
+    res.status(201).json({abilities})
   }
 }
 

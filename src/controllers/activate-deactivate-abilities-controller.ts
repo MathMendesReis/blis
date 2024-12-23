@@ -22,6 +22,6 @@ export class ActivateDeactivateAbilitiesController {
     }) 
    
 
-    res.status(201).json({message:"Abilities updated"})
+    res.status(204).json({message:"Abilities updated"})
   }
 }
